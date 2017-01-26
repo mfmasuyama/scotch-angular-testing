@@ -39,6 +39,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+    // npm install karma-spec-reporter --save-dev
     // npm install karma karma-coverage --save-dev
     reporters: ['spec', 'coverage'],
 
