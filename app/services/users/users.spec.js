@@ -1,74 +1,48 @@
-describe('Users factory', function() {
-  var Users;
-  var userList = [
-    {
-      id: '1',
-      name: 'Jane',
-      role: 'Designer',
-      location: 'New York',
-      twitter: 'gijane'
-    },
-    {
-      id: '2',
-      name: 'Bob',
-      role: 'Developer',
-      location: 'New York',
-      twitter: 'billybob'
-    },
-    {
-      id: '3',
-      name: 'Jim',
-      role: 'Developer',
-      location: 'Chicago',
-      twitter: 'jimbo'
-    },
-    {
-      id: '4',
-      name: 'Bill',
-      role: 'Designer',
-      location: 'LA',
-      twitter: 'dabill'
-    }
-  ];
-  var singleUser = {
-    id: '2',
-    name: 'Bob',
-    role: 'Developer',
-    location: 'New York',
-    twitter: 'billybob'
-  };
+describe('MyService factory', function() {
+  var MyService;
+  var trackList = [{duration_ms: 1}, {duration_ms: 20}, {duration_ms: 90}, {duration_ms: 5}];
 
   beforeEach(angular.mock.module('api.users'));
 
-  beforeEach(inject(function(_Users_) {
-    Users = _Users_;
+  beforeEach(inject(function(_MyService_) {
+    MyService = _MyService_;
   }));
 
   it('should exist', function() {
-    expect(Users).toBeDefined();
+    expect(MyService).toBeDefined();
   });
 
-  describe('.all()', function() {
-    it('should exist', function() {
-      expect(Users.all).toBeDefined();
-    });
-
-    it('should return a hard-coded list of users', function() {
-      expect(Users.all()).toEqual(userList);
-    });
+  it('should order down', function() {
+    var results = [{duration_ms: 1}, {duration_ms: 5}, {duration_ms: 20}, {duration_ms: 90}];
+    expect(MyService.orderDown(trackList)).toEqual(results);
   });
 
-  describe('.findById()', function() {
-    it('should exist', function() {
-      expect(Users.findById).toBeDefined();
-    });
-
-    it('should return one user object if it exists', function() {
-      expect(Users.findById('2')).toEqual(singleUser);
-    });
-
-    it('should return undefined if the user cannot be found', function() {
-      expect(Users.findById('ABC')).not.toBeDefined();
-    });
+  it('should order up', function() {
+    var results = [{duration_ms: 90}, {duration_ms: 20}, {duration_ms: 5}, {duration_ms: 1}];
+    expect(MyService.orderUp(trackList)).toEqual(results);
   });
+  // describe('.all()', function() {
+  //
+  //   it('should exist', function() {
+  //     expect(MyService.all).toBeDefined();
+  //   });
+  //
+  //   it('should return a hard-coded list of users', function() {
+  //     expect(MyService.all()).toEqual(trackList);
+  //   });
+  // });
+
+  // describe('.findById()', function() {
+  //   it('should exist', function() {
+  //     expect(MyService.findById).toBeDefined();
+  //   });
+  //
+  //   it('should return one user object if it exists', function() {
+  //     expect(MyService.findById('2')).toEqual(singleUser);
+  //   });
+  //
+  //   it('should return undefined if the user cannot be found', function() {
+  //     expect(MyService.findById('ABC')).not.toBeDefined();
+  //   });
+  // });
 });
