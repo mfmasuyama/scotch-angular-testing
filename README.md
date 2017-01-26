@@ -2,12 +2,12 @@
 
 `nvm use 5.0`
 
-`npm install`
+### --> `npm install`
 
 `node server.js`
 
 ### Test
 
-`npm install -g karma-cli`
+### --> `npm install -g karma-cli`
 
 `karma start`
