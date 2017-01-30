@@ -2,7 +2,9 @@
   'use strict';
 
   angular.module('App', [])
-  .service('MyService', function() {
+
+  // function($http) es necesario para las llamadas, sino va vacío.
+  .service('MyService', function($http) {
 
     this.getArtist = function(id) {
         return $http({
@@ -14,6 +16,17 @@
             console.error('Error');
         });
     }
+
+    this.getData = function () {
+       var result = $http.get("http://localhost:36337/api/EmployeeInfoAPI");
+       return result; //deferrer
+   };
+
+   this.get = function (id) {
+       var result = $http.get("https://api.spotify.com/v1/artists/" + id);
+       return result; //deferrer
+   };
+
 
     this.orderUp = function(tracks) {
         return tracks.sort(compareUp);

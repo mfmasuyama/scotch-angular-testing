@@ -44,46 +44,56 @@ describe('Order', function() {
 });
 
 ///////////////////////////////////////////////////////////////////////////////
-// describe('$http', function() {
-//
-//   var MyService;
-//
-//   beforeEach(angular.mock.module('App'));
-//
-//   beforeEach(inject(function(_MyService_,  _$httpBackend_) {
-//     MyService = _MyService_;
-//     $httpBackend =  _$httpBackend_;
-//   }));
-//
-//    afterEach(function() {
-//      $httpBackend.verifyNoOutstandingExpectation();
-//      $httpBackend.verifyNoOutstandingRequest();
-//    });
-//
-//    it('should fetch authentication token', function() {
-//      $httpBackend.expectGET('/auth.py');
-//      $httpBackend.flush();
-//    });
-//
-//   it(' $http call works', function() {
-//
-//   });
-//
-// });
 
-//////////////////////////////////////////////////
+//1.
+describe(' $http', function () {
+    var MyService, httpBackend;
 
-// describe('$http', function() {
-//   var MyService;
-//
-//   beforeEach(angular.mock.module('App'));
-//
-//   beforeEach(inject(function(_MyService_) {
-//     MyService = _MyService_;
-//   }));
-//
-//   it(' should order down', function() {
-//     expect(MyService.getArtist("0OdUWJ0sBjDrqHygGUXeCF").name).toEqual("Band of Horses");
-//   });
-//
-// });
+    // 2.
+    // 3. load the module.
+    beforeEach(angular.mock.module('App'));
+
+    // 4. get your service, also get $httpBackend
+    // $httpBackend will be a mock.
+    beforeEach(inject(function(_MyService_, $httpBackend) {
+      MyService = _MyService_;
+      httpBackend = $httpBackend;
+    }));
+
+    // 5. make sure no expectations were missed in your tests.
+    afterEach(function () {
+        httpBackend.verifyNoOutstandingExpectation();
+        httpBackend.verifyNoOutstandingRequest();
+    });
+
+    // 6.
+    it(' get()', function () {
+
+        var returnData = {};
+
+        // 7. expectGET to make sure this is called once.
+        httpBackend.expectGET("https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg").respond(returnData);
+
+        // 8. make the call.
+        var returnedPromise = MyService.get("0TnOYISbd1XYRBk9myaseg");
+
+        //9. set up a handler for the response, that will put the result
+        // into a variable in this scope for you to test.
+        var result;
+        returnedPromise.then(function (response) {
+            result = response.data;
+        });
+
+        // 10. flush the backend to "execute" the request to do the expectedGET assertion.
+        httpBackend.flush();
+
+        // 11. check the result.
+
+        expect(result).toEqual(returnData);
+
+    });
+
+
+
+
+});
