@@ -99,8 +99,9 @@ describe(' $http', function () {
 describe(' asychronous $http', function () {
     var MyService, httpBackend;
     var originalTimeout;
+    
 
-    beforeEach(function() {
+    async.beforeEach(function() {
       originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
       jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
     });
